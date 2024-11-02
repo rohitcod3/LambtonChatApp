@@ -1,13 +1,16 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Home } from "./components/Home.jsx";
+import { ChatRoom } from "./components/ChatRoom.jsx";
 
 function App() {
   return (
-    <>
-      <h1 className="text-5xl font-bold text-yellow-400">Test</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chatroom/:courseId/:userName" element={<ChatRoom />} />
+      </Routes>
+    </Router>
   );
 }
 
