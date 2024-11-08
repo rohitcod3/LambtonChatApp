@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react"; // Import useCallback
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -7,22 +7,24 @@ export function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
-  // Fetch messages when the component loads
-  useEffect(() => {
-    fetchMessages();
-  }, [courseId]);
-
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     try {
-      const response = await axios.get(`/api/messages/${courseId}`);
-      setMessages(response.data);
+      const response = await axios.get(
+        `http://localhost:8000/api/messages/${courseId}`
+      );
+      setMessages(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error("Failed to fetch messages", error);
     }
-  };
+  }, [courseId]); // Include courseId as a dependency
+
+  // Fetch messages when the component loads
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]); // Add fetchMessages to the dependency array
 
   const handleSendMessage = async () => {
-    if (!newMessage) return;
+    if (!newMessage.trim()) return; // Ensure message is not empty
     const messageData = {
       courseId,
       userName,
@@ -30,8 +32,11 @@ export function ChatRoom() {
     };
 
     try {
-      await axios.post("/api/messages", messageData);
-      setMessages((prev) => [...prev, messageData]);
+      const response = await axios.post(
+        "http://localhost:8000/api/messages",
+        messageData
+      ); // Updated URL here
+      setMessages((prev) => [...prev, response.data]); // Use response to include `_id`
       setNewMessage("");
     } catch (error) {
       console.error("Failed to send message", error);
@@ -42,8 +47,8 @@ export function ChatRoom() {
     <div className="chatroom">
       <h2>Course Chatroom: {courseId}</h2>
       <div className="messages">
-        {messages.map((msg, index) => (
-          <div key={index} className="message">
+        {messages.map((msg) => (
+          <div key={msg._id} className="message">
             <strong>{msg.userName}</strong>: {msg.message}
           </div>
         ))}

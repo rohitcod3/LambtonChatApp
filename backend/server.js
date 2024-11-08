@@ -20,7 +20,7 @@ app.use(express.json());
 
 
 
-app.use('/api/auth', msgRoutes)
+app.use('/api/messages', msgRoutes)
 
 app.listen(PORT, () => {
     connectToMongoDB()

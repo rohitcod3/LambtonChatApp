@@ -4,7 +4,7 @@ import { NewMessages } from '../controllers/msg.controller.js';
 const router = express.Router()
 
 
-router.post("/messages", NewMessages)
+router.post("/", NewMessages)
 router.get("/:courseId" , courseId);
 
 
