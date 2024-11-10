@@ -14,7 +14,9 @@
     "frontend": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-lottie": "^1.2.4",
     "react-router-dom": "^6.27.0",
+    "react-select": "^5.8.3",
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
