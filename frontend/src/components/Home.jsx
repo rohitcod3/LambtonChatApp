@@ -15,21 +15,29 @@ export function Home() {
   };
 
   return (
-    <div className="home">
-      <h1>Welcome to Lambton College Chat</h1>
-      <input
-        type="text"
-        placeholder="Enter Course ID"
-        value={courseId}
-        onChange={(e) => setCourseId(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Enter Username"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <button onClick={handleJoin}>Join Chat</button>
+    <div className="home flex flex-col justify-center items-center w-screen h-screen">
+      <div className="flex flex-col rounded-lg background-color: #ff5733; w-[450px] h-[400px] bg-gray-700 items-center justify-center shadow-2xl">
+        <h1>Welcome to Lambton College Chat</h1>
+        <div className="flex flex-col">
+          <input
+            type="text"
+            className="rounded-lg"
+            placeholder="Enter Course ID"
+            value={courseId}
+            onChange={(e) => setCourseId(e.target.value)}
+          />
+          <input
+            type="text"
+            className="rounded-lg"
+            placeholder="Enter Username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
+        <button className="btn btn-neutral" onClick={handleJoin}>
+          Join Chat
+        </button>
+      </div>
     </div>
   );
 }
