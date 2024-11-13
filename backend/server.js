@@ -12,6 +12,9 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8000
 
+
+let activeUsers = new Set();
+
 app.use(cors({
     origin: "http://localhost:5173", 
     credentials: true 

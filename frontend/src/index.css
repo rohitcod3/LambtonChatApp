@@ -13,6 +13,14 @@ body {
   padding: 0;
   background-color: #1c1d25;
   overflow: hidden;
+
+}
+
+.home-background{
+  background-image: url('./assets/pic2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .home {

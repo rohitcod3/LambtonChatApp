@@ -29,10 +29,13 @@ export function Home() {
   ];
 
   const handleJoin = () => {
-    if (courseId && userName) {
-      if (courses.includes(courseId)) {
+    const TrimmedCourseId = courseId.trim();
+    const TrimmedUserName = userName.trim();
+
+    if (TrimmedCourseId && TrimmedUserName) {
+      if (courses.includes(TrimmedCourseId)) {
         setError(null);
-        navigate(`/chatroom/${courseId}/${userName}`);
+        navigate(`/chatroom/${TrimmedCourseId}/${TrimmedUserName}`);
       } else {
         setError("Invalid course ID. Please enter a valid course ID");
       }

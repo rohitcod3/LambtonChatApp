@@ -57,52 +57,56 @@ export function ChatRoom() {
   };
 
   return (
-    <div className="chatroom h-screen flex justify-center items-center">
-      <div className="flex flex-col justify-between items-center shadow-lg bg-gray-900 w-[500px] h-[600px] p-5 rounded-md">
-        <h2 className="text-white text-xl mb-4">Course Chatroom: {courseId}</h2>
-        <div className="messages h-[400px] w-full overflow-y-auto bg-gray-800 p-3 rounded-md mb-4">
-          {messages.length === 0 ? (
-            <div className="text-center text-gray-400">
-              No messages yet. Start the conversation!
-            </div>
-          ) : (
-            messages.map((msg) => (
-              <div
-                key={msg._id}
-                className={`chat ${
-                  msg.userName === userName ? "chat-end" : "chat-start"
-                }`}
-              >
-                <div
-                  className={`chat-bubble ${
-                    msg.userName === userName
-                      ? "chat-bubble-primary"
-                      : "chat-bubble-secondary"
-                  } p-2 rounded-md mb-2`}
-                >
-                  <strong>
-                    {msg.userName === userName ? "You" : msg.userName}
-                  </strong>
-                  : {msg.message}
-                </div>
+    <div className="chatroom h-screen flex justify-center items-center home-background  ">
+      <div className="h-[700px]w-[500px]  bg-purple-400 rounded-md  bg-clip-padding  backdrop-filter  backdrop-blur-lg bg-opacity-10  border border-gray-100">
+        <div className="flex flex-col justify-between items-center shadow-lg bg-gsray-900 w-[535px] h-[700px] p-5 rounded-md  ">
+          <h2 className="text-white text-xl mb-4">
+            Course Chatroom: {courseId}
+          </h2>
+          <div className="messages h-[600px] w-full overflow-y-auto bg-gray-800 p-3 rounded-md mb-4 ">
+            {messages.length === 0 ? (
+              <div className="text-center text-gray-400">
+                No messages yet. Start the conversation!
               </div>
-            ))
-          )}
-        </div>
-        <div className="w-full flex items-center">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            className="flex-1 px-4 py-2 mr-2 rounded-md border border-gray-500 focus:outline-none"
-          />
-          <button
-            onClick={handleSendMessage}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Send
-          </button>
+            ) : (
+              messages.map((msg) => (
+                <div
+                  key={msg._id}
+                  className={`chat ${
+                    msg.userName === userName ? "chat-end" : "chat-start"
+                  }`}
+                >
+                  <div
+                    className={`chat-bubble ${
+                      msg.userName === userName
+                        ? "chat-bubble-primary"
+                        : "chat-bubble-secondary"
+                    } p-2 rounded-md mb-2`}
+                  >
+                    <strong>
+                      {msg.userName === userName ? "You" : msg.userName}
+                    </strong>
+                    : {msg.message}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+          <div className="w-full flex items-center">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              className="flex-1 px-4 py-2 mr-2 rounded-md border border-gray-500 focus:outline-none"
+            />
+            <button
+              onClick={handleSendMessage}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>
