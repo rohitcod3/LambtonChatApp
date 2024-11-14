@@ -1,6 +1,7 @@
 // socket.js
 
 import { Server } from "socket.io";
+import Message from "./models/Message.js";
 
 export function initializeSocket(server) {
   const io = new Server(server, {
@@ -29,11 +30,16 @@ let activeUsers = new Set();
       }
     })
     // Handle incoming messages
-    socket.on("sendMessage", (messageData) => {
-      // Broadcast the message to all clients, including the sender
-      io.emit("receiveMessage", messageData);
+    socket.on("sendMessage", async (messageData) => {
+      try {
+        const message = new Message(messageData);
+        await message.save();
+        io.emit("receiveMessage", messageData);
+      } catch (error) {
+        console.error("Failed to save message:", error);
+      }
     });
-
+    
     socket.on("disconnect", () => {
       if(socket.userName){
         activeUsers.delete(socket.userName);

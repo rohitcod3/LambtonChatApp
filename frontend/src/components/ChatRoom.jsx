@@ -45,6 +45,11 @@ export function ChatRoom() {
       setMessages((prev) => [...prev, messageData]);
     });
 
+    newSocket.on("connect", () => {
+      console.log("Reconnected to server");
+      fetchMessages();
+    });
+
     return () => newSocket.disconnect();
   }, [fetchMessages, navigate, userName]);
 
