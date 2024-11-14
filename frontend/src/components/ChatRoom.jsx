@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { io } from "socket.io-client";
 
@@ -8,6 +8,7 @@ export function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [socket, setSocket] = useState(null);
+  const navigate = useNavigate();
 
   const fetchMessages = useCallback(async () => {
     try {
@@ -27,12 +28,23 @@ export function ChatRoom() {
     const newSocket = io("http://localhost:8000", { withCredentials: true });
     setSocket(newSocket);
 
+    newSocket.emit("joinChat", userName);
+
+    newSocket.on("usernameError", (error) => {
+      alert(error);
+      navigate("/");
+    });
+
+    newSocket.on("joinedChat", (message) => {
+      console.log(message);
+    });
+
     newSocket.on("receiveMessage", (messageData) => {
       setMessages((prev) => [...prev, messageData]);
     });
 
     return () => newSocket.disconnect();
-  }, [fetchMessages]);
+  }, [fetchMessages, navigate, userName]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -63,7 +75,7 @@ export function ChatRoom() {
           <h2 className="text-white text-xl mb-4">
             Course Chatroom: {courseId}
           </h2>
-          <div className="messages h-[600px] w-full overflow-y-auto bg-gray-800 p-3 rounded-md mb-4 ">
+          <div className="messages custom-scrollbar h-[600px] w-full overflow-y-auto bg-gddray-800 p-3 rounded-md mb-4 ">
             {messages.length === 0 ? (
               <div className="text-center text-gray-400">
                 No messages yet. Start the conversation!
@@ -79,11 +91,17 @@ export function ChatRoom() {
                   <div
                     className={`chat-bubble ${
                       msg.userName === userName
-                        ? "chat-bubble-primary"
-                        : "chat-bubble-secondary"
+                        ? "background-gradient"
+                        : "background-gradient"
                     } p-2 rounded-md mb-2`}
                   >
-                    <strong>
+                    <strong
+                      className={
+                        msg.userName === userName
+                          ? "text-slate-300 font-bold"
+                          : ""
+                      }
+                    >
                       {msg.userName === userName ? "You" : msg.userName}
                     </strong>
                     : {msg.message}

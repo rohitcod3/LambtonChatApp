@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Home } from "./components/Home.jsx";
 import { ChatRoom } from "./components/ChatRoom.jsx";
 import { Logo1 } from "./components/Logo1.jsx";
+import { Test } from "./components/Test.jsx";
 
 function App() {
   const location = useLocation();
@@ -65,6 +66,19 @@ function App() {
               transition={{ duration: 0.5 }}
             >
               <Logo1 />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/test"
+          element={
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Test />
             </motion.div>
           }
         />
