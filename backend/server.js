@@ -21,11 +21,12 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const distPath = "D:/HTML project/LambtonChatapp/frontend/dist";
-app.use(express.static(distPath))
-app.get("*", (req,res) => {
-    res.sendFile(path.join(distPath, "index.html"));
-})
+// const distPath = "D:/HTML project/LambtonChatapp/frontend/dist";
+
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+  });
 
 
 
