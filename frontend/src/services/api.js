@@ -1,4 +1,4 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000'; 
+axios.defaults.baseURL = 'https://lambtonchatapp.onrender.com'; 
 export default axios;
