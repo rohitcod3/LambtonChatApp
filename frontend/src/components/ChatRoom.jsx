@@ -13,7 +13,7 @@ export function ChatRoom() {
   const fetchMessages = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/messages/${courseId}`,
+        `https://lambtonchatapp.onrender.com/api/messages/${courseId}`,
         { withCredentials: true }
       );
       setMessages(Array.isArray(response.data) ? response.data : []);
@@ -25,7 +25,9 @@ export function ChatRoom() {
   useEffect(() => {
     fetchMessages();
 
-    const newSocket = io("http://localhost:8000", { withCredentials: true });
+    const newSocket = io("https://lambtonchatapp.onrender.com", {
+      withCredentials: true,
+    });
     setSocket(newSocket);
 
     newSocket.emit("joinChat", userName);
@@ -57,7 +59,7 @@ export function ChatRoom() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/messages",
+        "https://lambtonchatapp.onrender.com/api/messages",
         messageData,
         { withCredentials: true }
       );
