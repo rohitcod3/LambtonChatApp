@@ -29,9 +29,18 @@ let activeUsers = new Set();
       }
     })
     // Handle incoming messages
-    socket.on("sendMessage", (messageData) => {
-      // Broadcast the message to all clients, including the sender
-      io.emit("receiveMessage", messageData);
+    // socket.on("sendMessage", (messageData) => {
+    //   io.emit("receiveMessage", messageData);
+    // });
+
+    socket.on("sendMessage", async (messageData) => {
+      try {
+        const message = new Message(messageData);
+        await message.save();
+        io.emit("receiveMessage", messageData);
+      } catch (error) {
+        console.error("Failed to save message:", error);
+      }
     });
 
     socket.on("disconnect", () => {
