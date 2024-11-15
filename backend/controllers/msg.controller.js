@@ -20,7 +20,7 @@ export const courseId = async (req, res) => {
 
     try {
     const messages = await Message.find({courseId}).sort({time: 1});
-    res.json(messages);
+    res.status(200).json(messages);
     }catch(error){
         res.status(500).json({error: 'Failed to fetch messages'})
     }

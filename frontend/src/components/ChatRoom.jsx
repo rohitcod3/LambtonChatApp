@@ -12,6 +12,7 @@ export function ChatRoom() {
 
   const fetchMessages = useCallback(async () => {
     try {
+      console.log("Try fetching messages");
       const response = await axios.get(
         `https://lambtonchatapp.onrender.com/api/messages/${courseId}`,
         { withCredentials: true }

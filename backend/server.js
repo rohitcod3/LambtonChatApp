@@ -39,8 +39,8 @@ app.use('/api/messages', msgRoutes)
 
 server.listen(PORT, () => {
     connectToMongoDB()
-    console.log("Static files served from:", path.join(__dirname, "frontend/dist"));
-console.log("Index.html path:", path.join(__dirname, "frontend/dist", "index.html"));
-    console.log("MONGO_URI:", process.env.MONGO_URI);
+//     console.log("Static files served from:", path.join(__dirname, "frontend/dist"));
+// console.log("Index.html path:", path.join(__dirname, "frontend/dist", "index.html"));
+//     console.log("MONGO_URI:", process.env.MONGO_URI);
     return console.log(`Server Running on port ${PORT}`)
 })
