@@ -1,5 +1,5 @@
 // socket.js
-
+import Message from "./models/Message.js";
 import { Server } from "socket.io";
 
 export function initializeSocket(server) {
