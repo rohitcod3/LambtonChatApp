@@ -21,6 +21,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.use('/api/messages', msgRoutes)
 // const distPath = "D:/HTML project/LambtonChatapp/frontend/dist";
 const distPath = "/opt/render/project/src/frontend/dist";
 
@@ -35,7 +36,6 @@ initializeSocket(server);
 
 
 
-app.use('/api/messages', msgRoutes)
 
 server.listen(PORT, () => {
     connectToMongoDB()
