@@ -48,6 +48,28 @@ export function ChatRoom() {
     return () => newSocket.disconnect();
   }, [fetchMessages, navigate, userName]);
 
+  // const handleSendMessage = async () => {
+  //   if (!newMessage.trim()) return;
+
+  //   const messageData = {
+  //     courseId,
+  //     userName,
+  //     message: newMessage,
+  //   };
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://lambtonchatapp.onrender.com/api/messages",
+  //       messageData,
+  //       { withCredentials: true }
+  //     );
+  //     socket.emit("sendMessage", response.data);
+  //     setNewMessage("");
+  //   } catch (error) {
+  //     console.error("Failed to send message", error);
+  //   }
+  // };
+
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
@@ -58,12 +80,17 @@ export function ChatRoom() {
     };
 
     try {
+      // Send the message to the server
       const response = await axios.post(
         "https://lambtonchatapp.onrender.com/api/messages",
         messageData,
         { withCredentials: true }
       );
-      socket.emit("sendMessage", response.data);
+
+      // Emit the message data excluding _id to the WebSocket server
+      const { _id, ...data } = response.data; // Remove _id if present
+      socket.emit("sendMessage", data);
+
       setNewMessage("");
     } catch (error) {
       console.error("Failed to send message", error);

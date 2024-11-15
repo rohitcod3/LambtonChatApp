@@ -34,10 +34,12 @@ let activeUsers = new Set();
     // });
 
     socket.on("sendMessage", async (messageData) => {
+      console.log("Message Data:", messageData);
       try {
-        const message = new Message(messageData);
-        await message.save();
-        io.emit("receiveMessage", messageData);
+        const { _id, ...data } = messageData;
+        const message = new Message(data);
+        const savedMessage = await message.save();
+        io.emit("receiveMessage", savedMessage);
       } catch (error) {
         console.error("Failed to save message:", error);
       }
