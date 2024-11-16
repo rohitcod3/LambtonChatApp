@@ -23,7 +23,7 @@ export function ChatRoom() {
         { withCredentials: true }
       );
       setMessages(Array.isArray(response.data) ? response.data : []);
-      scrollToBottom();
+      // scrollToBottom();
     } catch (error) {
       console.error("Failed to fetch messages", error);
     }
@@ -50,33 +50,15 @@ export function ChatRoom() {
 
     newSocket.on("receiveMessage", (messageData) => {
       setMessages((prev) => [...prev, messageData]);
-      scrollToBottom();
+      // scrollToBottom();
     });
 
     return () => newSocket.disconnect();
   }, [fetchMessages, navigate, userName]);
 
-  // const handleSendMessage = async () => {
-  //   if (!newMessage.trim()) return;
-
-  //   const messageData = {
-  //     courseId,
-  //     userName,
-  //     message: newMessage,
-  //   };
-
-  //   try {
-  //     const response = await axios.post(
-  //       "https://lambtonchatapp.onrender.com/api/messages",
-  //       messageData,
-  //       { withCredentials: true }
-  //     );
-  //     socket.emit("sendMessage", response.data);
-  //     setNewMessage("");
-  //   } catch (error) {
-  //     console.error("Failed to send message", error);
-  //   }
-  // };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
