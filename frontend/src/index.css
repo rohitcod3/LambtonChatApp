@@ -48,14 +48,16 @@ button {
 .background-gradient {
   background: linear-gradient(to left, #c05dc9, #7c5feb);
   height: auto; /* Full viewport height */
-  width: 200px;   /* Full width */
+  width: 200px;  
+  /* width: auto; */
+  word-wrap: break-word;
 
 }
 
 .messages {
   /* border: 1px solid #ddd; */
   padding: 20px;
-  max-width: 400px;
+  max-width: 550px;
   margin: 0 auto 20px;
   /* background-color: #362d2e; */
 
