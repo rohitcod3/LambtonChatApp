@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { io } from "socket.io-client";
@@ -8,22 +8,16 @@ export function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [socket, setSocket] = useState(null);
-  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Fetch messages from the server
   const fetchMessages = useCallback(async () => {
     try {
+      console.log("Try fetching messages");
       const response = await axios.get(
-        `https://lambtonchatapp.onrender.com/${courseId}`,
+        `https://lambtonchatapp.onrender.com/api/messages/${courseId}`,
         { withCredentials: true }
       );
       setMessages(Array.isArray(response.data) ? response.data : []);
-      scrollToBottom();
     } catch (error) {
       console.error("Failed to fetch messages", error);
     }
@@ -32,7 +26,7 @@ export function ChatRoom() {
   useEffect(() => {
     fetchMessages();
 
-    const newSocket = io("https://lambtonchatapp.onrender.com/", {
+    const newSocket = io("https://lambtonchatapp.onrender.com", {
       withCredentials: true,
     });
     setSocket(newSocket);
@@ -50,13 +44,32 @@ export function ChatRoom() {
 
     newSocket.on("receiveMessage", (messageData) => {
       setMessages((prev) => [...prev, messageData]);
-      scrollToBottom();
     });
 
-    return () => {
-      newSocket.disconnect();
-    };
+    return () => newSocket.disconnect();
   }, [fetchMessages, navigate, userName]);
+
+  // const handleSendMessage = async () => {
+  //   if (!newMessage.trim()) return;
+
+  //   const messageData = {
+  //     courseId,
+  //     userName,
+  //     message: newMessage,
+  //   };
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://lambtonchatapp.onrender.com/api/messages",
+  //       messageData,
+  //       { withCredentials: true }
+  //     );
+  //     socket.emit("sendMessage", response.data);
+  //     setNewMessage("");
+  //   } catch (error) {
+  //     console.error("Failed to send message", error);
+  //   }
+  // };
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -68,27 +81,20 @@ export function ChatRoom() {
     };
 
     try {
-      console.log("Sending message payload:", messageData);
-
+      // Send the message to the server
       const response = await axios.post(
         "https://lambtonchatapp.onrender.com/api/messages",
         messageData,
         { withCredentials: true }
       );
 
-      console.log("Message saved successfully:", response.data);
-      socket.emit("sendMessage", response.data);
+      // Emit the message data excluding _id to the WebSocket server
+      const { _id, ...data } = response.data; // Remove _id if present
+      socket.emit("sendMessage", data);
 
       setNewMessage("");
-      scrollToBottom();
     } catch (error) {
-      console.error("Failed to send message", error.response || error.message);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSendMessage();
+      console.error("Failed to send message", error);
     }
   };
 
