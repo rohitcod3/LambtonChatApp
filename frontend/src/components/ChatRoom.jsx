@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { io } from "socket.io-client";
@@ -8,7 +8,12 @@ export function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [socket, setSocket] = useState(null);
+  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const fetchMessages = useCallback(async () => {
     try {
@@ -18,6 +23,7 @@ export function ChatRoom() {
         { withCredentials: true }
       );
       setMessages(Array.isArray(response.data) ? response.data : []);
+      scrollToBottom();
     } catch (error) {
       console.error("Failed to fetch messages", error);
     }
@@ -44,6 +50,7 @@ export function ChatRoom() {
 
     newSocket.on("receiveMessage", (messageData) => {
       setMessages((prev) => [...prev, messageData]);
+      scrollToBottom();
     });
 
     return () => newSocket.disconnect();
@@ -93,8 +100,15 @@ export function ChatRoom() {
       socket.emit("sendMessage", data);
 
       setNewMessage("");
+      scrollToBottom();
     } catch (error) {
       console.error("Failed to send message", error);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
     }
   };
 
