@@ -19,7 +19,7 @@ export function ChatRoom() {
   const fetchMessages = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/messages/${courseId}`,
+        `https://lambtonchatapp.onrender.com/${courseId}`,
         { withCredentials: true }
       );
       setMessages(Array.isArray(response.data) ? response.data : []);
@@ -32,7 +32,7 @@ export function ChatRoom() {
   useEffect(() => {
     fetchMessages();
 
-    const newSocket = io("http://localhost:5000", {
+    const newSocket = io("https://lambtonchatapp.onrender.com/", {
       withCredentials: true,
     });
     setSocket(newSocket);
@@ -71,7 +71,7 @@ export function ChatRoom() {
       console.log("Sending message payload:", messageData);
 
       const response = await axios.post(
-        "http://localhost:5000/api/messages",
+        "https://lambtonchatapp.onrender.com/api/messages",
         messageData,
         { withCredentials: true }
       );
