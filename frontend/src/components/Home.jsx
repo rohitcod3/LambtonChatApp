@@ -45,7 +45,7 @@ export function Home() {
   };
 
   return (
-    <div className="home flex flex-col justify-center items-center w-screen h-screen m">
+    <div className="home flex flex-col justify-center items-center w-screen h-screen">
       {error && (
         <div
           role="alert"
@@ -68,28 +68,28 @@ export function Home() {
         </div>
       )}
 
-      <div>
-        <Logo1 className="border-solid" />
+      <div className="mb-6">
+        <Logo1 />
       </div>
-      <div className="flex mt-4 flex-col rounded-lg w-[450px]  items-center justify-center shadow-2xl">
-        {/* <h1>Welcome to Lambton College Chat </h1> */}
-        <div className="flex flex-row">
+
+      <div className="flex flex-col rounded-lg w-full max-w-[400px] sm:max-w-md p-6 items-center justify-center shadow-2xl">
+        <div className="flex justify-center items-center flex-col w-full gap-4 md:flex-row">
           <input
             type="text"
-            className="rounded-lg"
-            placeholder={`Enter Course ID`}
+            className="rounded-lg flex-1 p-2"
+            placeholder="Enter Course ID"
             value={courseId}
             onChange={(e) => setCourseId(e.target.value.toUpperCase())}
           />
           <input
             type="text"
-            className="rounded-lg"
+            className="rounded-lg flex-1 p-2"
             placeholder="Enter Username"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
         </div>
-        <button className="btn btn-neutral" onClick={handleJoin}>
+        <button className="btn btn-neutral mt-4 w-full " onClick={handleJoin}>
           Join Chat
         </button>
       </div>
