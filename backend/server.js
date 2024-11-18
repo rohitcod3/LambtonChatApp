@@ -8,10 +8,12 @@ import {connectToMongoDB} from "./db/connectToMongoDB.js";
 import { initializeSocket } from "./socket.js";
 import http from "http";
 import path from "path";
+import { Server } from "socket.io";
 
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8000
+const io = new Server(server, { cors: { origin: ["https://lambtonchatapp.onrender.com"], credentials:true } });
 
 const __dirname = path.resolve();
 
@@ -20,8 +22,9 @@ app.use(cors({
     credentials: true 
 }));
 app.use(express.json());
+initializeSocket(io);
 
-app.use('/api/messages', msgRoutes)
+app.use('/api/messages', msgRoutes(io))
 // const distPath = "D:/HTML project/LambtonChatapp/frontend/dist";
 const distPath = "/opt/render/project/src/frontend/dist";
 
@@ -31,16 +34,7 @@ app.get("*", (req, res) => {
   });
 
 
-
-initializeSocket(server);
-
-
-
-
 server.listen(PORT, () => {
     connectToMongoDB()
-//     console.log("Static files served from:", path.join(__dirname, "frontend/dist"));
-// console.log("Index.html path:", path.join(__dirname, "frontend/dist", "index.html"));
-//     console.log("MONGO_URI:", process.env.MONGO_URI);
     return console.log(`Server Running on port ${PORT}`)
 })
