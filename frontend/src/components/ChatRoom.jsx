@@ -105,12 +105,15 @@ export function ChatRoom() {
 
   return (
     <div className="chatroom h-screen flex justify-center items-center home-background">
-      <div className="h-[80vh] w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] bg-purple-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border border-gray-100">
+      <div className="h-[85vh] w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] bg-purple-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border border-gray-100">
         <div className="flex flex-col justify-between items-center shadow-lg w-full h-full p-5 rounded-md">
           <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-4 text-center">
             Course Chatroom: {courseId}
           </h2>
-          <div className="messages custom-scrollbar h-[60vh] sm:h-[65vh] md:h-[70vh] w-full overflow-y-auto p-3 rounded-md mb-4">
+          <div
+            className="messages custom-scrollbar h-[60vh] sm:h-[65vh] md:h-[70vh] w-full overflow-y-auto p-3 rounded-md mb-4"
+            style={{ paddingBottom: "2rem" }}
+          >
             {messages.length === 0 ? (
               <div className="text-center text-gray-400">
                 No messages yet. Start the conversation!
