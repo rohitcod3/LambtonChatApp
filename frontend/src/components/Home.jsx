@@ -76,14 +76,14 @@ export function Home() {
         <div className="flex justify-center items-center flex-col w-full gap-4 md:flex-row">
           <input
             type="text"
-            className="rounded-lg flex-1 p-2"
-            placeholder="Enter Course ID"
+            className="rounded-lg flex-1 p-2 text-sm"
+            placeholder="Enter Course ID (e.g., FSIT)"
             value={courseId}
             onChange={(e) => setCourseId(e.target.value.toUpperCase())}
           />
           <input
             type="text"
-            className="rounded-lg flex-1 p-2"
+            className="rounded-lg flex-1 p-2 text-sm"
             placeholder="Enter Username"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
