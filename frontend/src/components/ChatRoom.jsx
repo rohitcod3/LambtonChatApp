@@ -105,7 +105,7 @@ export function ChatRoom() {
   //h-[85vh] changed to h-[100vh]
   return (
     <div className="chatroom h-screen flex justify-center items-center home-background">
-      <div className="h-[100vh] w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] bg-purple-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border border-gray-100">
+      <div className="h-[100vh] lg:h-[85vh] w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px]  bg-purple-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border border-gray-100">
         <div className="flex flex-col justify-between items-center shadow-lg w-full h-full p-5 rounded-md">
           <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-4 text-center">
             Course Chatroom: {courseId}
@@ -149,20 +149,46 @@ export function ChatRoom() {
             )}
             <div ref={messagesEndRef}></div>
           </div>
-          <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-2">
+          <div className="w-full flex items-center relative">
             <input
               type="text"
               placeholder="Type a message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={handleKeyPress}
-              className="flex-1 w-full sm:px-4 py-2 rounded-md border border-gray-500 focus:outline-none"
+              className="flex-1 w-full sm:px-4 py-2 pr-10 rounded-md border border-gray-500 focus:outline-none"
             />
+            {/* Send Button for Desktop */}
             <button
               onClick={handleSendMessage}
-              className="px-3 w-full max-w-[100px] py-2 bg-blue-500 text-white rounded-md"
+              className="hidden sm:block px-3 py-2 bg-blue-500 text-white rounded-md ml-2"
             >
               Send
+            </button>
+            {/* Arrow Icon for Mobile */}
+            <button
+              onClick={handleSendMessage}
+              className="absolute right-2 top-[16px] transform -translate-y-1/2 transform-translate-x-1 sm:hidden text-blue-500"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6 text-blue-500 rotate-45 rotate-12"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M22 2L11 13"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M22 2L15 22 11 13 2 9l20-7z"
+                />
+              </svg>
             </button>
           </div>
         </div>
