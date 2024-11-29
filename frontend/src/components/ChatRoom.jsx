@@ -106,7 +106,7 @@ export function ChatRoom() {
   return (
     <div className="chatroom h-screen flex justify-center items-center home-background overflow-y-auto">
       <div className="h-[100vh] lg:h-[85vh] w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] bg-purple-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border  border-gray-100">
-        <div className="flex flex-col justify-between items-center shadow-lg w-full h-full p-5 rounded-md ">
+        <div className="flex flex-col justify-between items-center shadow-lg w-full h-full p-5 rounded-md overflow-y-auto">
           <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-4 text-center">
             Course Chatroom: {courseId}
           </h2>
