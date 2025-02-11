@@ -63,11 +63,6 @@ The **Lambton Chat App** is a real-time messaging platform designed specifically
 - Messages are stored in **MongoDB**, ensuring persistence and retrieval.
 - **Socket.IO** enables real-time messaging, broadcasting messages instantly to users in the chatroom.
 
-## **Future Improvements**
-- 🔐 **User Authentication** – Implement sign-in and sign-up features.
-- 📄 **File Sharing** – Allow users to share documents and images.
-- 🎤 **Voice & Video Chat** – Enhance communication with real-time voice/video features.
-- 🌎 **Multi-Language Support** – Make the platform more inclusive.
 
 ## **Contributions**
 We welcome contributions! Feel free to fork this repo, create a new branch, and submit a PR. 🚀
